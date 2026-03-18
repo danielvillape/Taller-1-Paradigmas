@@ -1,155 +1,73 @@
-# 🏪 Tienda de Ropa Deportiva - Sistema CRUD
+# Sistema de Gestión de Ropa Deportiva
 
-## 📋 ¿Qué es esto?
+## Descripción
+Aplicación console en C# para gestionar tiendas de ropa deportiva. Permite administrar clientes, productos y ventas con persistencia en archivos CSV.
 
-Un sistema de gestión para una tienda de ropa deportiva que permite:
-- ✅ Agregar, ver, actualizar y eliminar **productos**
-- ✅ Agregar, ver, actualizar y eliminar **clientes**
-- ✅ Registrar y eliminar **ventas**
-- ✅ Control automático de **stock**
-
-Los datos se guardan en archivos **CSV** (no necesitas una base de datos compleja).
-
----
-
-## � Requisitos
-
-- **.NET 8 SDK** instalado
-- **Git** para versión control
-
----
-
-## 📁 Estructura
+## Estructura del Proyecto
 
 ```
 ropadeportiva/
-├── Producto.cs          # Modelo de producto
-├── Cliente.cs           # Modelo de cliente
-├── Venta.cs             # Modelo de venta
-├── GestorProductos.cs   # CRUD de productos
-├── GestorClientes.cs    # CRUD de clientes
-├── GestorVentas.cs      # CRUD de ventas
-├── Program.cs           # Menú principal
-├── Productos.csv        # Base de datos (se crea automáticamente)
-├── Clientes.csv         # Base de datos (se crea automáticamente)
-└── Ventas.csv           # Base de datos (se crea automáticamente)
+├── Entidad.cs           (Clase base abstracta)
+├── Cliente.cs           (Hereda de Entidad)
+├── Producto.cs          (Hereda de Entidad)
+├── Venta.cs
+├── GestorClientes.cs
+├── GestorProductos.cs
+├── GestorVentas.cs
+├── Program.cs
+└── ropadeportiva.csproj
 ```
 
----
+## Clases Principales
 
-## ▶️ Cómo usar
+### Entidad (Clase base)
+Clase abstracta que proporciona funcionalidad común para Cliente y Producto.
+- **Atributos**: `id`, `nombre`
+- **Métodos**: `GetId()`, `GetNombre()`, `ToString()`
 
-### 1. Ejecutar la aplicación
+### Cliente (Hereda de Entidad)
+Representa un cliente del sistema.
+- **Atributos adicionales**: `email`, `telefono`
+- **Métodos**: `GetEmail()`, `GetTelefono()`
 
-```bash
-cd ropadeportiva/ropadeportiva
-dotnet run
-```
+### Producto (Hereda de Entidad)
+Representa un producto disponible.
+- **Atributos adicionales**: `talla`, `precio`, `cantidadStock`
+- **Métodos**: `GetTalla()`, `GetPrecio()`, `GetCantidadStock()`, `SetCantidadStock()`
 
-### 2. Menú principal
+### Venta
+Representa una transacción de venta.
+- **Atributos**: `id`, `clienteId`, `productoId`, `cantidad`, `fecha`
+- **Métodos**: Getters para acceder a los datos
 
-```
-========================================
-  TIENDA DE ROPA DEPORTIVA
-========================================
-1. Gestionar Productos
-2. Gestionar Clientes
-3. Gestionar Ventas
-4. Salir
-```
-
-Selecciona un número y sigue las instrucciones.
-
----
-
-## 🎯 ¿Cómo funciona cada parte?
-
-### Productos
-- **ID**: Identificador único (ej: 1, 2, 3)
-- **Nombre**: Nombre de la prenda (ej: "Camiseta Nike")
-- **Talla**: XS, S, M, L, XL, XXL
-- **Precio**: Valor unitario (ej: 49.99)
-- **Stock**: Cantidad disponible
-
-### Clientes
-- **ID**: Identificador único
-- **Nombre**: Nombre completo
-- **Email**: Correo electrónico
-- **Teléfono**: Número de contacto
-
-### Ventas
-- **ID**: Identificador único
-- **Cliente**: ID del cliente que compró
-- **Producto**: ID del producto vendido
-- **Cantidad**: Unidades vendidas
-- **Fecha**: Cuándo se realizó la venta
-
----
-
-## 💾 CSV Helper
-
-La librería **CsvHelper** simplifica trabajar con archivos CSV:
-
-- **Cargar**: Lee el CSV y convierte las filas en objetos
-- **Guardar**: Toma la lista de objetos y escribe en el CSV
-
-Así no tienes que parsear strings manualmente.
-
----
-
-## 🔍 Ejemplo: Registrar una venta
+## Relaciones
 
 ```
-1. Ir a "Gestionar Ventas" → "Registrar nueva venta"
-2. Ingresar ID de la venta (ej: 1)
-3. Ingresar ID del cliente (ej: 1)
-4. Ingresar ID del producto (ej: 2)
-5. Ingresar cantidad (ej: 2)
+Entidad (clase base abstracta)
+  ├── Cliente (herencia)
+  └── Producto (herencia)
 
-Resultado:
-✓ Venta registrada
-✓ Stock del producto se reduce automáticamente
-✓ Datos guardados en Ventas.csv
+Venta
+  ├── Asociación con Cliente (por clienteId)
+  └── Asociación con Producto (por productoId)
 ```
 
----
+## Funcionalidades
 
-## ⚙️ Compilar y probar
+- ✅ **Gestión de Clientes**: Crear, listar y buscar clientes
+- ✅ **Gestión de Productos**: Crear, listar, buscar y actualizar stock
+- ✅ **Gestión de Ventas**: Registrar y listar ventas
+- ✅ **Persistencia**: Datos guardados en archivos CSV
+- ✅ **Herencia**: Cliente y Producto heredan de Entidad
 
-```bash
-# Descargar dependencias
-dotnet restore
+## Cómo usar
 
-# Compilar
-dotnet build
+1. Ejecuta la aplicación desde la línea de comandos
+2. Selecciona la opción deseada del menú
+3. Sigue las instrucciones en pantalla
+4. Los datos se guardan automáticamente en archivos CSV
 
-# Ejecutar
-dotnet run
-```
+## Requisitos
 
----
-
-## 📝 Notas importantes
-
-- Los archivos CSV se crean automáticamente la primera vez que ejecutas la app
-- Cada cambio (agregar, actualizar, eliminar) se guarda **inmediatamente**
-- Si cierras la app, los datos se mantienen (están en los CSV)
-- La app valida que:
-  - No haya IDs duplicados
-  - Los clientes y productos existan antes de vender
-  - Haya stock suficiente para cada venta
-
----
-
-## 🎓 Lo que aprendes aquí
-
-- Clases y objetos (POO)
-- Listas y LINQ
-- Lectura/escritura de archivos
-- Patrón CRUD
-- Menús interactivos en consola
-- Persistencia de datos
-
----
-
-¡Listo! Ahora a usar el sistema 🚀
+- .NET 8.0 o superior
+- Visual Studio o VS Code con extensión de C#
