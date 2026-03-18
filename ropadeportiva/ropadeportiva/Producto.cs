@@ -1,32 +1,17 @@
 namespace ropadeportiva
 {
-    public class Producto
+    public class Producto : Entidad
     {
-        private int id;
-        private string nombre;
         private string talla;
         private double precio;
         private int cantidadStock;
 
         // Constructor
-        public Producto(int id, string nombre, string talla, double precio, int cantidadStock)
+        public Producto(int id, string nombre, string talla, double precio, int cantidadStock) : base(id, nombre)
         {
-            this.id = id;
-            this.nombre = nombre;
             this.talla = talla;
             this.precio = precio;
             this.cantidadStock = cantidadStock;
-        }
-
-        // Getters
-        public int GetId()
-        {
-            return id;
-        }
-
-        public string GetNombre()
-        {
-            return nombre;
         }
 
         public string GetTalla()

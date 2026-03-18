@@ -1,30 +1,15 @@
 namespace ropadeportiva
 {
-    public class Cliente
+    public class Cliente : Entidad
     {
-        private int id;
-        private string nombre;
         private string email;
         private string telefono;
 
         // Constructor
-        public Cliente(int id, string nombre, string email, string telefono)
+        public Cliente(int id, string nombre, string email, string telefono) : base(id, nombre)
         {
-            this.id = id;
-            this.nombre = nombre;
             this.email = email;
             this.telefono = telefono;
-        }
-
-        // Getters
-        public int GetId()
-        {
-            return id;
-        }
-
-        public string GetNombre()
-        {
-            return nombre;
         }
 
         public string GetEmail()
