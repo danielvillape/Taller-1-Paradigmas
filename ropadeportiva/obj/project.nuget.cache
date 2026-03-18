@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lAQJuU6S3ZU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\fredy\\OneDrive\\Documentos\\Taller-1-Paradigmas\\ropadeportiva\\ropadeportiva.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\fredy\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
